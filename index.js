@@ -1,26 +1,16 @@
+require('./config/config');
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var localStrategy = require("passport-local");
+var mongoose = require('./db/mongoose');
 var passportLocalMongoose = require("passport-local-mongoose");
 var {
     User
 } = require("./models/users.js");
 
-var MONGODB_URI = "mongodb://localhost/Login";
 
-var prod = true;
-if(prod)
-{
-    MONGODB_URI = "mongodb+srv://rahuluser:rahulraj@todoapp-kzfjc.mongodb.net/Login?retryWrites=true"
-}
-
-
-mongoose.connect(MONGODB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-});
 
 var app = express();
 app.set("view engine", "ejs");
@@ -102,8 +92,8 @@ function isLoggedIn(req, res, next) {
 };
 
 
-var port = 3000 || process.env.PORT;
 
-app.listen(port, () => {
+
+app.listen(process.env.PORT, () => {
     console.log("started")
 });
